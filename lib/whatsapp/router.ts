@@ -112,5 +112,5 @@ export const MODE_CONFIRM: Record<WhatsappModule, string> = {
 
 export function needsAccountText(module: 'post' | 'reels', appUrl: string): string {
   const what = module === 'post' ? 'LinkedIn posts' : 'Reel scripts';
-  return `To get ${what} here, create your free Manch account and add this WhatsApp number: ${appUrl}/login\n\nYou can fact-check forwards right now — just send one.`;
+  return `To get ${what} here, create your free Manch account and link this WhatsApp number in your profile: ${appUrl}/signup\n\nYou can fact-check forwards right now — just send one.`;
 }

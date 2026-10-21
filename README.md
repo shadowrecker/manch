@@ -52,7 +52,7 @@ Optional catalogue seeds: `npm run seed:brands`, `npm run seed:rates`, `npm run 
 
 | Integration | Env vars | Notes |
 |---|---|---|
-| Supabase | `NEXT_PUBLIC_SUPABASE_*`, `SUPABASE_SERVICE_ROLE_KEY` | Enable Email, Google and Phone auth providers |
+| Supabase | `NEXT_PUBLIC_SUPABASE_*`, `SUPABASE_SERVICE_ROLE_KEY` | Email + password auth with "Confirm email" on; add `<app-url>/**` to Auth → Redirect URLs. Optional Google: set `NEXT_PUBLIC_AUTH_GOOGLE=true` |
 | Claude | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` | All generation |
 | OpenAI | `OPENAI_API_KEY` | Whisper (voice notes) + embeddings (brand match, fact corpus) |
 | WhatsApp | `DIALOG360_*` | Point the number's webhook at `/api/whatsapp/webhook` |

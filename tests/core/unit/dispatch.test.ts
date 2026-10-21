@@ -117,7 +117,7 @@ describe('dispatchMessage', () => {
   it('asks unknown numbers to sign up for Post/Reels', async () => {
     setup({ profile: null });
     await dispatchMessage(msg({ text: 'post' }));
-    expect(vi.mocked(sendText).mock.calls[0][1]).toMatch(/\/login/);
+    expect(vi.mocked(sendText).mock.calls[0][1]).toMatch(/\/signup/);
     expect(enqueue).not.toHaveBeenCalled();
   });
 

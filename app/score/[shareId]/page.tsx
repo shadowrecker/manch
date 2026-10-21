@@ -95,7 +95,7 @@ export default async function ScorePage({ params }: ScorePageProps) {
                 get your score.
               </p>
               <div className="row" style={{ justifyContent: 'center', marginTop: 14 }}>
-                <a className="btn" href="/login">
+                <a className="btn" href="/signup">
                   Get my Manch Score
                 </a>
               </div>

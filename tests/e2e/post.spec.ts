@@ -83,7 +83,7 @@ test.describe('public Manch Score share page', () => {
   test('an invalid share link shows "Score not found" with a CTA, in the Post palette', async ({ page }) => {
     await page.goto('/score/not-a-real-id');
     await expect(page.getByRole('heading', { name: /Score not found/i })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Get my Manch Score/i })).toHaveAttribute('href', '/login');
+    await expect(page.getByRole('link', { name: /Get my Manch Score/i })).toHaveAttribute('href', '/signup');
     await expect(page.locator('[data-module="post"]').first()).toBeVisible();
   });
 });

@@ -57,7 +57,7 @@ describe('decideRoute — one WhatsApp number for every module', () => {
     expect(MENU_TEXT).toMatch(/Post/);
     expect(MENU_TEXT).toMatch(/Reels/);
     expect(MENU_TEXT).toMatch(/Check/);
-    expect(needsAccountText('post', 'https://manch.app')).toContain('https://manch.app/login');
+    expect(needsAccountText('post', 'https://manch.app')).toContain('https://manch.app/signup');
   });
 });
 

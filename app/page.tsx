@@ -14,7 +14,10 @@ export default function LandingPage() {
           <a href="#pricing" className="btn ghost sm">
             Pricing
           </a>
-          <Link href="/login" className="btn sm">
+          <Link href="/login" className="btn ghost sm">
+            Log in
+          </Link>
+          <Link href="/signup" className="btn sm">
             Get started free
           </Link>
         </div>
@@ -31,7 +34,7 @@ export default function LandingPage() {
           forward before you share it.
         </p>
         <div className="row" style={{ justifyContent: 'center' }}>
-          <Link href="/login" className="btn">
+          <Link href="/signup" className="btn">
             Start free — no card needed
           </Link>
           <a href="#how" className="btn ghost">
@@ -99,7 +102,7 @@ export default function LandingPage() {
                     <li key={f}>{f}</li>
                   ))}
                 </ul>
-                <Link href="/login" className={`btn sm${t.featured ? '' : ' ghost'}`} style={{ marginTop: 'auto' }}>
+                <Link href="/signup" className={`btn sm${t.featured ? '' : ' ghost'}`} style={{ marginTop: 'auto' }}>
                   {t.plan === 'free' ? 'Start free' : `Choose ${t.name}`}
                 </Link>
               </div>

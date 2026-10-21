@@ -22,6 +22,7 @@ const PUBLIC = {
   razorpayKeyIdPublic: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
   posthogKey: process.env.NEXT_PUBLIC_POSTHOG_KEY || '',
   posthogHost: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
+  authGoogle: process.env.NEXT_PUBLIC_AUTH_GOOGLE === 'true',
 };
 
 export const env = {
@@ -125,6 +126,9 @@ export const env = {
   // Analytics / errors / email
   posthogKey: PUBLIC.posthogKey,
   posthogHost: PUBLIC.posthogHost,
+
+  // Show "Continue with Google" (enable the Google provider in Supabase first).
+  authGoogle: PUBLIC.authGoogle,
   sentryDsn: get('SENTRY_DSN'),
   resendApiKey: get('RESEND_API_KEY'),
   resendFromEmail: get('RESEND_FROM_EMAIL', 'Manch <hello@manch.app>'),

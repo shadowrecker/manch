@@ -3,6 +3,7 @@ import { getUser } from '@/lib/supabase/server';
 import { getProfile } from '@/lib/db/queries';
 import { ProfileForm } from '@/components/ProfileForm';
 import { WhatsappLinkForm } from '@/components/post/WhatsappLinkForm';
+import { ChangePassword } from '@/components/auth/ChangePassword';
 
 // Account profile: editable details shared by every module, plus linking the
 // WhatsApp number the one Manch bot recognises. Sign out lives in the account
@@ -25,6 +26,7 @@ export default async function ProfilePage() {
         }}
       />
       <WhatsappLinkForm initial={profile?.whatsapp_e164 ?? null} />
+      <ChangePassword />
       <div className="card">
         <h2>Sign out</h2>
         <p className="muted">Signs you out on this browser.</p>
