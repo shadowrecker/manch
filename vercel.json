@@ -1,0 +1,8 @@
+{
+  "crons": [
+    { "path": "/api/deals/cron/refresh-metrics", "schedule": "0 3 * * *" },
+    { "path": "/api/check/cron/refresh-corpus", "schedule": "0 */6 * * *" },
+    { "path": "/api/reels/cron/hashtags", "schedule": "0 2 * * 1" },
+    { "path": "/api/reels/cron/audio", "schedule": "30 2 * * 1" }
+  ]
+}

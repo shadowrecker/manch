@@ -1,0 +1,18 @@
+[
+  { "domain": "pib.gov.in", "rating": "highly_reliable" },
+  { "domain": "boomlive.in", "rating": "highly_reliable" },
+  { "domain": "altnews.in", "rating": "highly_reliable" },
+  { "domain": "factcheck.afp.com", "rating": "highly_reliable" },
+  { "domain": "thehindu.com", "rating": "highly_reliable" },
+  { "domain": "indianexpress.com", "rating": "highly_reliable" },
+  { "domain": "reuters.com", "rating": "highly_reliable" },
+  { "domain": "pti.in", "rating": "highly_reliable" },
+  { "domain": "en.wikipedia.org", "rating": "mixed" },
+  { "domain": "ndtv.com", "rating": "mixed" },
+  { "domain": "timesofindia.indiatimes.com", "rating": "mixed" },
+  { "domain": "indiatoday.in", "rating": "mixed" },
+  { "domain": "news18.com", "rating": "mixed" },
+  { "domain": "hindustantimes.com", "rating": "mixed" },
+  { "domain": "opindia.com", "rating": "unreliable" },
+  { "domain": "postcard.news", "rating": "unreliable" }
+]

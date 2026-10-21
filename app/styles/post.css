@@ -1,0 +1,30 @@
+/* =========================================================================
+   Manch Post (formerly Folio AI) — module palette.
+   The shared design system in app/globals.css IS the Folio visual spec, so
+   every Post component class (.variant, .tag.*, .li-card, .ring, .audit-row,
+   .fix, .steps, .badge-voice, .watermark, …) already lives in core. This file
+   only re-tints the palette back to Folio's blue/indigo, scoped to the module.
+   ========================================================================= */
+
+[data-module='post'] {
+  --bg: #0b1020;
+  --panel: #121a31;
+  --panel2: #0f1730;
+  --line: #23304f;
+  --ink: #eaf0ff;
+  --muted: #9bb0d6;
+  --brand: #5b8cff;
+  --brand2: #7c5cff;
+  --good: #37d39a;
+  --warn: #ffb454;
+  --bad: #ff6b6b;
+  --chip: #1b2742;
+  --radius: 14px;
+}
+
+.module-frame[data-module='post'] {
+  background:
+    radial-gradient(1200px 700px at 80% -10%, #1a2a4d 0, transparent 60%),
+    radial-gradient(900px 600px at -10% 10%, #16224a 0, transparent 55%),
+    var(--bg);
+}
