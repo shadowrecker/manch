@@ -11,13 +11,26 @@ function get(name: string, fallback = ''): string {
   return process.env[name] || fallback;
 }
 
+// NEXT_PUBLIC_* values MUST be read with literal `process.env.NEXT_PUBLIC_X`
+// expressions: Next.js inlines only those into browser bundles. Reading them
+// via get(name) works on the server but leaves the browser with the fallback
+// (e.g. the Supabase client would call a placeholder URL → "Failed to fetch").
+const PUBLIC = {
+  appUrl: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+  razorpayKeyIdPublic: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
+  posthogKey: process.env.NEXT_PUBLIC_POSTHOG_KEY || '',
+  posthogHost: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
+};
+
 export const env = {
-  appUrl: get('NEXT_PUBLIC_APP_URL', 'http://localhost:3000'),
+  appUrl: PUBLIC.appUrl,
   nodeEnv: get('NODE_ENV', 'development'),
 
   // Supabase (one project for every module)
-  supabaseUrl: get('NEXT_PUBLIC_SUPABASE_URL'),
-  supabaseAnonKey: get('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
+  supabaseUrl: PUBLIC.supabaseUrl,
+  supabaseAnonKey: PUBLIC.supabaseAnonKey,
   supabaseServiceKey: get('SUPABASE_SERVICE_ROLE_KEY'),
   supabaseAudioBucket: get('SUPABASE_STORAGE_BUCKET_AUDIO', 'audio'),
   kitsBucket: get('SUPABASE_STORAGE_BUCKET_KITS', 'media-kits'),
@@ -48,7 +61,7 @@ export const env = {
   whatsappTemplateDelivery: get('WHATSAPP_TEMPLATE_REELS_DELIVERY', 'reels_script_v1'),
 
   // Razorpay — one account; unified Manch plans (lib/plans.ts)
-  razorpayKeyIdPublic: get('NEXT_PUBLIC_RAZORPAY_KEY_ID'),
+  razorpayKeyIdPublic: PUBLIC.razorpayKeyIdPublic,
   razorpayKeyId: get('RAZORPAY_KEY_ID'),
   razorpayKeySecret: get('RAZORPAY_KEY_SECRET'),
   razorpayWebhookSecret: get('RAZORPAY_WEBHOOK_SECRET'),
@@ -106,8 +119,8 @@ export const env = {
   corpusRefreshCronSecret: get('CORPUS_REFRESH_CRON_SECRET'),
 
   // Analytics / errors / email
-  posthogKey: get('NEXT_PUBLIC_POSTHOG_KEY'),
-  posthogHost: get('NEXT_PUBLIC_POSTHOG_HOST', 'https://eu.i.posthog.com'),
+  posthogKey: PUBLIC.posthogKey,
+  posthogHost: PUBLIC.posthogHost,
   sentryDsn: get('SENTRY_DSN'),
   resendApiKey: get('RESEND_API_KEY'),
   resendFromEmail: get('RESEND_FROM_EMAIL', 'Manch <hello@manch.app>'),
