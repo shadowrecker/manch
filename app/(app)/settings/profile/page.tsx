@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getUser } from '@/lib/supabase/server';
 import { getProfile } from '@/lib/db/queries';
 import { ProfileForm } from '@/components/ProfileForm';
+import { AvatarUpload } from '@/components/AvatarUpload';
 import { WhatsappLinkForm } from '@/components/post/WhatsappLinkForm';
 import { ChangePassword } from '@/components/auth/ChangePassword';
 
@@ -15,6 +16,7 @@ export default async function ProfilePage() {
 
   return (
     <>
+      <AvatarUpload initialUrl={profile?.avatar_url ?? null} name={profile?.full_name ?? user.email ?? null} />
       <ProfileForm
         email={user.email ?? user.phone ?? null}
         initial={{

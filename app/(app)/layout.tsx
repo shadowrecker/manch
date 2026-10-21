@@ -17,13 +17,14 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const supabase = createClient();
   const { data: profile } = await supabase
     .from('profiles')
-    .select('plan, full_name')
+    .select('plan, full_name, avatar_url')
     .eq('id', user.id)
     .maybeSingle();
   const account = {
     name: profile?.full_name ?? null,
     email: user.email ?? user.phone ?? null,
     plan: normalisePlan(profile?.plan),
+    avatarUrl: profile?.avatar_url ?? null,
   };
 
   return (

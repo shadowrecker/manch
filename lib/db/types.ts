@@ -31,6 +31,7 @@ export interface Database {
           whatsapp_e164: string | null;
           hindi_output: boolean;
           default_language: string | null;
+          avatar_url: string | null;
           created_at: Ts;
           updated_at: Ts;
         };
@@ -44,6 +45,7 @@ export interface Database {
           whatsapp_e164?: string | null;
           hindi_output?: boolean;
           default_language?: string | null;
+          avatar_url?: string | null;
           created_at?: Ts;
           updated_at?: Ts;
         };

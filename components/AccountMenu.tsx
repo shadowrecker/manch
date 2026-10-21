@@ -9,6 +9,8 @@ export interface Account {
   name: string | null;
   email: string | null;
   plan: Plan;
+  /** Profile picture (Supabase Storage), or null to show initials. */
+  avatarUrl?: string | null;
 }
 
 const LINKS = [
@@ -52,7 +54,12 @@ export function AccountMenu({ account }: { account: Account }) {
         aria-label="Account menu"
         onClick={() => setOpen((o) => !o)}
       >
-        {initials(account.name || account.email?.split('@')[0])}
+        {account.avatarUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element -- Supabase Storage URL, already 256px
+          <img src={account.avatarUrl} alt="" width={34} height={34} />
+        ) : (
+          initials(account.name || account.email?.split('@')[0])
+        )}
       </button>
       {open && (
         <div className="account-menu" role="menu">

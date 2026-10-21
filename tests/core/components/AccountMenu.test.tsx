@@ -62,4 +62,11 @@ describe('<AccountMenu>', () => {
     expect(screen.getByText('ravi.s@example.com')).toBeInTheDocument();
     expect(screen.getByText('Free plan')).toBeInTheDocument();
   });
+
+  it('shows the profile picture instead of initials when set', () => {
+    render(<AccountMenu account={{ ...account, avatarUrl: 'https://x.supabase.co/a.webp' }} />);
+    const btn = screen.getByRole('button', { name: /account menu/i });
+    expect(btn.querySelector('img')).toHaveAttribute('src', 'https://x.supabase.co/a.webp');
+    expect(btn).not.toHaveTextContent('AK');
+  });
 });

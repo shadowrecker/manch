@@ -43,6 +43,7 @@ supabase/migrations/0002_post.sql
 supabase/migrations/0003_reels.sql
 supabase/migrations/0004_deals.sql
 supabase/migrations/0005_check.sql
+supabase/migrations/0006_avatars.sql  profile pictures (column + public `avatars` bucket)
 supabase/seed.sql                    demo hashtags + trending audio for Reels
 ```
 
