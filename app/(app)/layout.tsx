@@ -15,11 +15,20 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   if (!user) redirect('/login');
 
   const supabase = createClient();
-  const { data: profile } = await supabase.from('profiles').select('plan').eq('id', user.id).maybeSingle();
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('plan, full_name')
+    .eq('id', user.id)
+    .maybeSingle();
+  const account = {
+    name: profile?.full_name ?? null,
+    email: user.email ?? user.phone ?? null,
+    plan: normalisePlan(profile?.plan),
+  };
 
   return (
     <ModuleFrame>
-      <Nav plan={normalisePlan(profile?.plan)} />
+      <Nav account={account} />
       <main className="wrap">{children}</main>
     </ModuleFrame>
   );

@@ -77,6 +77,7 @@ export const MODULE_NAV: ModuleNav[] = [
 
 export const SETTINGS_TABS = [
   { href: '/home', label: 'Home', exact: true },
+  { href: '/settings/profile', label: 'Profile' },
   { href: '/settings/billing', label: 'Plans & Billing' },
   { href: '/settings/team', label: 'Team' },
 ];

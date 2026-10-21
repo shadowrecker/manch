@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MODULE_NAV, SETTINGS_TABS, isTabActive, moduleForPath } from '@/lib/nav';
-import { PLAN_LABEL, type Plan } from '@/lib/plans';
+import { PLAN_LABEL } from '@/lib/plans';
+import { AccountMenu, type Account } from '@/components/AccountMenu';
 
 // The one top bar for all of Manch: logo → Home, the module switcher
-// (Post · Reels · Deals · Check), the plan badge, and the active module's
-// sub-tabs underneath.
-export function Nav({ plan }: { plan: Plan }) {
+// (Post · Reels · Deals · Check), the plan badge, the account menu, and the
+// active module's sub-tabs underneath.
+export function Nav({ account }: { account: Account }) {
+  const { plan } = account;
   const pathname = usePathname() ?? '';
   const active = moduleForPath(pathname);
   const subtabs = active ? MODULE_NAV.find((m) => m.key === active)!.tabs : SETTINGS_TABS;
@@ -30,6 +32,7 @@ export function Nav({ plan }: { plan: Plan }) {
           <Link href="/settings/billing" className="planbadge">
             {PLAN_LABEL[plan]} plan
           </Link>
+          <AccountMenu account={account} />
         </div>
       </header>
       <nav className="subtabs" aria-label="Sections">

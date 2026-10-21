@@ -30,7 +30,7 @@ export default async function CheckDashboardPage() {
         </p>
         {!profile?.whatsapp_e164 && (
           <p className="hint" style={{ margin: '8px 0 0' }}>
-            <Link href="/post/onboarding">Link your WhatsApp number</Link> so checks you run on WhatsApp use your plan and show up here.
+            <Link href="/settings/profile">Link your WhatsApp number</Link> so checks you run on WhatsApp use your plan and show up here.
           </p>
         )}
         <div className="row" style={{ marginTop: 14 }}>

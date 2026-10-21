@@ -780,4 +780,82 @@
       font-size: 32px;
     }
   }
+
+  /* ── Account menu (top-right avatar) ── */
+  .account {
+    position: relative;
+  }
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, var(--brand), var(--brand2));
+    color: white;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .avatar:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .account-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 230px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+  }
+  .account-menu .who {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 10px 12px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 6px;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  .account-menu .who .muted {
+    font-size: 12px;
+  }
+  .account-menu .who .pill {
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .account-menu a,
+  .account-menu .signout {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 9px 10px;
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .account-menu a:hover,
+  .account-menu .signout:hover {
+    background: var(--panel2);
+  }
+  .account-menu form {
+    border-top: 1px solid var(--line);
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+  .account-menu .signout {
+    color: var(--bad);
+  }
 }

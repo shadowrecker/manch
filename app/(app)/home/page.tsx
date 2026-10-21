@@ -76,7 +76,7 @@ export default async function HomePage() {
         </p>
         <div className="row">
           {!profile?.whatsapp_e164 && (
-            <Link href="/post/onboarding" className="btn sm">
+            <Link href="/settings/profile" className="btn sm">
               Link your WhatsApp number
             </Link>
           )}
