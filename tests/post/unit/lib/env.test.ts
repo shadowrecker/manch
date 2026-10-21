@@ -54,7 +54,7 @@ describe('hasEnv', () => {
 describe('env defaults and fallbacks', () => {
   it('uses the anthropicModel default when unset', async () => {
     const { env } = await load({ ANTHROPIC_MODEL: '' });
-    expect(env.anthropicModel).toBe('claude-sonnet-4-6');
+    expect(env.anthropicModel).toBe('claude-opus-5');
   });
 
   it('honours an explicit anthropicModel override', async () => {

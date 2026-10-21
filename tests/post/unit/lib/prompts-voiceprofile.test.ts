@@ -2,16 +2,21 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Tests for the style-guide builder (lib/ai/prompts/voiceProfile.ts).
 //
-// This builder calls anthropic().messages.create directly (not runToolCall) and
-// extracts the first text block. We mock OUR claude wrapper so anthropic()
-// returns a fake client whose messages.create we control, and expose a fixed
-// MODEL constant.
+// The builder calls runText() from our Claude wrapper. We mock the Anthropic
+// SDK class itself, so the real wrapper (with its model-aware request shaping)
+// runs and we assert on the exact messages.create body. The model is pinned to
+// a sampling-capable one here; model adaptation is covered in claude.test.ts.
 
-const createSpy = vi.fn();
+const createSpy = vi.hoisted(() => {
+  process.env.ANTHROPIC_API_KEY = 'sk-test';
+  process.env.ANTHROPIC_MODEL = 'claude-sonnet-4-6';
+  return vi.fn();
+});
 
-vi.mock('@/lib/ai/claude', () => ({
-  anthropic: () => ({ messages: { create: createSpy } }),
-  MODEL: 'claude-test-model',
+vi.mock('@anthropic-ai/sdk', () => ({
+  default: class {
+    messages = { create: createSpy };
+  },
 }));
 
 import { buildStyleGuide, type VoiceProfilePromptInput } from '@/lib/modules/post/ai/prompts/voiceProfile';
@@ -87,7 +92,7 @@ describe('buildStyleGuide', () => {
   it('uses the configured model and low-temperature config', async () => {
     await buildStyleGuide(baseInput());
     const args = firstCallArgs();
-    expect(args.model).toBe('claude-test-model');
+    expect(args.model).toBe('claude-sonnet-4-6');
     expect(args.max_tokens).toBe(600);
     expect(args.temperature).toBe(0.4);
   });
@@ -132,6 +137,15 @@ describe('buildStyleGuide', () => {
   it('shows "(none specified)" when topics is empty', async () => {
     await buildStyleGuide(baseInput({ topics: [] }));
     expect(firstCallArgs().messages[0].content).toContain('TOPICS: (none specified)');
+  });
+
+  it('omits temperature and adds thinking headroom on a current model', async () => {
+    const { runText } = await import('@/lib/ai/claude');
+    await runText({ system: 's', messages: [{ role: 'user', content: 'x' }], maxTokens: 600, temperature: 0.4 }, 'claude-opus-5');
+    const args = createSpy.mock.calls[0][0] as Record<string, unknown>;
+    expect(args.model).toBe('claude-opus-5');
+    expect(args).not.toHaveProperty('temperature');
+    expect(args.max_tokens).toBe(12_600);
   });
 
   it('propagates a model/transport error (e.g. missing API key)', async () => {

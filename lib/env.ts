@@ -37,7 +37,11 @@ export const env = {
 
   // Anthropic
   anthropicApiKey: get('ANTHROPIC_API_KEY'),
-  anthropicModel: get('ANTHROPIC_MODEL', 'claude-sonnet-4-6'),
+  // Any current or older Claude model works — lib/ai/claude.ts adapts each
+  // request to the model's capabilities (sampling, forced tools, thinking).
+  anthropicModel: get('ANTHROPIC_MODEL', 'claude-opus-5'),
+  // Optional thinking-depth / spend control for current models: low | medium | high | xhigh | max.
+  anthropicEffort: get('ANTHROPIC_EFFORT'),
   promptVersion: get('PROMPT_VERSION', 'dev'),
 
   // OpenAI — Whisper (Post/Reels voice notes) + embeddings (Deals match, Check corpus)

@@ -1,5 +1,4 @@
-import type Anthropic from '@anthropic-ai/sdk';
-import { anthropic, MODEL } from '@/lib/ai/claude';
+import { runText } from '@/lib/ai/claude';
 
 // Builds the persistent STYLE GUIDE for a user's voice profile (PRD §9.1).
 // This text is stored on voice_profiles.style_guide and later injected (cached)
@@ -49,17 +48,13 @@ export async function buildStyleGuide(input: VoiceProfilePromptInput): Promise<s
     `"""`,
   ].join('\n');
 
-  // anthropic() calls requireEnv(ANTHROPIC_API_KEY) lazily, so this fails clearly
+  // runText() calls requireEnv(ANTHROPIC_API_KEY) lazily, so this fails clearly
   // without a key but still compiles/builds. The caller catches that to keep
   // onboarding from hard-failing.
-  const res = await anthropic().messages.create({
-    model: MODEL,
-    max_tokens: 600,
+  return runText({
+    maxTokens: 600,
     temperature: 0.4,
     system: SYSTEM,
     messages: [{ role: 'user', content: userMsg }],
   });
-
-  const first = res.content.find((b): b is Anthropic.TextBlock => b.type === 'text');
-  return first?.text.trim() ?? '';
 }
