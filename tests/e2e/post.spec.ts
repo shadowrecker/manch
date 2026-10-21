@@ -25,21 +25,25 @@ test.describe('Post on the public landing page', () => {
     await expect(page.getByText('₹149').first()).toBeVisible();
   });
 
-  test('the primary CTA routes to /login', async ({ page }) => {
+  test('the primary CTA routes to sign-up', async ({ page }) => {
     await page.goto('/');
     const cta = page.getByRole('link', { name: /Start free/i }).first();
     await expect(cta).toBeVisible();
-    await expect(cta).toHaveAttribute('href', /\/login$/);
+    await expect(cta).toHaveAttribute('href', /\/signup$/);
     await cta.click();
-    await expect(page).toHaveURL(/\/login$/);
+    await expect(page).toHaveURL(/\/signup$/);
   });
 });
 
 test.describe('public login page', () => {
-  test('shows the Manch brand and a sign-in affordance', async ({ page }) => {
+  test('shows the Manch brand and an email + password sign-in', async ({ page }) => {
     await page.goto('/login');
     await expect(page.getByText('Manch').first()).toBeVisible();
-    await expect(page.getByRole('button', { name: /Continue with Google/i })).toBeVisible();
+    await expect(page.getByLabel('Email')).toBeVisible();
+    await expect(page.getByLabel('Password')).toBeVisible();
+    await expect(page.getByRole('button', { name: /^Log in$/ })).toBeVisible();
+    // Google is opt-in (NEXT_PUBLIC_AUTH_GOOGLE), off by default.
+    await expect(page.getByRole('button', { name: /Continue with Google/i })).toHaveCount(0);
   });
 });
 

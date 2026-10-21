@@ -15,7 +15,25 @@ test('landing presents all four modules as one product', async ({ page }) => {
 test('login offers one sign-in for every module', async ({ page }) => {
   await page.goto('/login');
   await expect(page.getByRole('heading', { name: /Welcome to Manch/i })).toBeVisible();
-  await expect(page.getByText(/Post, Reels, Deals and Check/)).toBeVisible();
+  await expect(page.getByText(/Log in to Post, Reels, Deals and Check/)).toBeVisible();
+});
+
+test('sign-up, forgot-password and reset pages render', async ({ page }) => {
+  await page.goto('/signup');
+  await expect(page.getByRole('heading', { name: /Create your Manch account/i })).toBeVisible();
+  await expect(page.getByLabel('Confirm password')).toBeVisible();
+  await page.goto('/forgot-password');
+  await expect(page.getByRole('button', { name: /Send reset link/i })).toBeVisible();
+  await page.goto('/reset-password');
+  await expect(page.getByText(/invalid or has expired/i)).toBeVisible(); // no session
+});
+
+test('login and sign-up link to each other', async ({ page }) => {
+  await page.goto('/login');
+  await page.getByRole('link', { name: /Create an account/i }).click();
+  await expect(page).toHaveURL(/\/signup$/);
+  await page.getByRole('link', { name: /^Log in$/ }).click();
+  await expect(page).toHaveURL(/\/login$/);
 });
 
 test('authed areas redirect to login when signed out', async ({ page }) => {
