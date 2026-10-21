@@ -130,10 +130,10 @@ describe('generateThreeAngles', () => {
     expect(lastCallArgs().messages[0].content).toContain('HINDI_OUTPUT=false');
   });
 
-  it('requests creative generation params (maxTokens 2048, temperature 0.8)', async () => {
+  it('requests creative generation params (maxTokens 6000, temperature 0.8)', async () => {
     await generateThreeAngles(baseInput());
     const args = lastCallArgs();
-    expect(args.maxTokens).toBe(2048);
+    expect(args.maxTokens).toBe(6000);
     expect(args.temperature).toBe(0.8);
   });
 

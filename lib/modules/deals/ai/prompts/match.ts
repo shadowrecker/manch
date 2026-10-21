@@ -84,7 +84,7 @@ export async function rerankMatches(creator: RerankCreator, candidates: RerankCa
     system: [cached(SYSTEM)],
     messages: [{ role: 'user', content: creatorMsg }],
     tool: TOOL,
-    maxTokens: 2000,
+    maxTokens: 4000,
     temperature: 0.3,
   });
 

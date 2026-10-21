@@ -87,7 +87,7 @@ export async function synthesizeVerdict(forward: string, claimEvidence: ClaimEvi
     system: [cached(SYSTEM)],
     messages: [{ role: 'user', content: userMsg }],
     tool: TOOL,
-    maxTokens: 1500,
+    maxTokens: 3000,
     temperature: 0.2,
   });
 

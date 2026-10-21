@@ -45,11 +45,27 @@ export async function runToolCall<T>(params: ToolCallParams): Promise<T> {
     tool_choice: { type: 'tool', name: params.tool.name },
     messages: params.messages,
   });
+  // A response cut off at max_tokens carries a tool_use block whose input is
+  // incomplete JSON-wise (missing fields / truncated strings). Never hand that
+  // to callers as if it were a full result — fail loudly so the route returns
+  // an error instead of saving half a post or script. Indic scripts cost far
+  // more tokens than English, so this is a real risk for long outputs.
+  if (res.stop_reason === 'max_tokens') {
+    throw new ClaudeTruncatedError(params.tool.name, params.maxTokens ?? 2048);
+  }
   const block = res.content.find(
     (b): b is Anthropic.ToolUseBlock => b.type === 'tool_use',
   );
   if (!block) throw new Error('Claude returned no tool_use block');
   return block.input as T;
+}
+
+/** The model hit max_tokens before finishing the tool call; output is incomplete. */
+export class ClaudeTruncatedError extends Error {
+  constructor(tool: string, maxTokens: number) {
+    super(`Claude output for "${tool}" was cut off at max_tokens=${maxTokens}`);
+    this.name = 'ClaudeTruncatedError';
+  }
 }
 
 /**

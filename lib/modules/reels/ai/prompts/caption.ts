@@ -42,7 +42,7 @@ export async function generateCaption(input: CaptionGenInput): Promise<string> {
     system: [system],
     messages: [{ role: 'user', content: userMsg }],
     tool: EMIT_TOOL,
-    maxTokens: 600,
+    maxTokens: 2000, // up to 2,200 chars in native script
     temperature: 0.8,
   });
   // Hard cap to the platform limit as a belt-and-braces guard.

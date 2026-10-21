@@ -84,7 +84,7 @@ export async function generateThreeStyleScript(input: ScriptGenInput): Promise<T
     system: [cached(FORMAT_RULES), cached(languageBlock(input.languageCode))],
     messages: [{ role: 'user', content: userMsg }],
     tool: EMIT_TOOL,
-    maxTokens: 2600,
+    maxTokens: 8000, // 3 styles in native Indic script (several× English token cost)
     temperature: 0.85,
   });
 }

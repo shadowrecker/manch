@@ -82,7 +82,7 @@ export async function generateThreeAngles(input: GenInput): Promise<ThreeAngles>
     system: [cached(STATIC_SYSTEM), cached(perUser)],
     messages: [{ role: 'user', content: userMsg }],
     tool: EMIT_TOOL,
-    maxTokens: 2048,
+    maxTokens: 6000, // 3 full posts; Hindi output is token-heavy
     temperature: 0.8,
   });
 }

@@ -118,6 +118,26 @@ describe('runToolCall', () => {
     ).rejects.toThrow(/tool_use/i);
   });
 
+  it('throws ClaudeTruncatedError when output was cut off at max_tokens (never returns partial input)', async () => {
+    createSpy.mockResolvedValue({
+      stop_reason: 'max_tokens',
+      content: [{ type: 'tool_use', id: 't', name: 'emit', input: { posts: [{ angle: 'story' }] } }],
+    });
+    const mod = await load();
+    const p = mod.runToolCall({ system: 's', messages: [], tool, maxTokens: 50 });
+    await expect(p).rejects.toBeInstanceOf(mod.ClaudeTruncatedError);
+    await expect(p).rejects.toThrow(/max_tokens=50/);
+  });
+
+  it('returns input normally when stop_reason is tool_use', async () => {
+    createSpy.mockResolvedValue({
+      stop_reason: 'tool_use',
+      content: [{ type: 'tool_use', id: 't', name: 'emit', input: { ok: true } }],
+    });
+    const { runToolCall } = await load();
+    await expect(runToolCall({ system: 's', messages: [], tool })).resolves.toEqual({ ok: true });
+  });
+
   it('throws when content is empty', async () => {
     createSpy.mockResolvedValue({ content: [] });
     const { runToolCall } = await load();
