@@ -98,3 +98,9 @@ Tests live in `tests/core` (shared billing, WhatsApp routing, auth) and
 - Every webhook (Razorpay, WhatsApp, QStash, cron) is signature- or secret-verified and fails closed.
 - Plans change only via the verified Razorpay webhook; a DB trigger stops users editing their own plan.
 - RLS is enabled on every table; privileged tables are service-role only.
+
+## Licence
+
+Copyright © 2026 Navroop Srivastava. All rights reserved.
+
+This repository is public so the code can be viewed as a portfolio project. No licence is granted: you may not copy, modify, distribute or use the code without written permission.
