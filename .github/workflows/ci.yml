@@ -6,8 +6,10 @@ on:
   pull_request:
 
 jobs:
+  # Pinned to 24.04: ubuntu-latest is now 26.04, which Playwright 1.48 can't
+  # install Chromium on. Move back to ubuntu-latest after upgrading Playwright.
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,7 +33,7 @@ jobs:
           NEXT_PUBLIC_APP_URL: http://localhost:3000
 
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
